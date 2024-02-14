@@ -1,0 +1,133 @@
+type: custom:apexcharts-card
+style: |
+
+  ha-card .apexcharts-gridlines-horizontal{
+     /*transform: translate(-14px, 0px);*/
+     /* margin-left: -20px*/
+        transform: scaleX(0.90);
+  }
+  ha-card .apexcharts-grid{
+    transform: translate(14px, 0px);
+   /*transform: scaleX(0.5);*/
+    overflow:hidden !important;
+  }
+  ha-card .apexcharts-xcrosshairs{
+    transform: translate(-13px, 0px);
+  }
+  ha-card {
+     overflow:visible !important;
+    }
+  ha-card .apexcharts-tooltip{
+    border-radius: 0px;
+    border: 0 !important;
+    box-shadow: unset;
+  }
+        ha-card .apexcharts-legend{
+        display: none;
+        
+        }
+apex_config:
+  dataLabels:
+    enabled: true
+    offsetY: -8
+    style:
+      fontSize: 10px
+      fontFamily: SegoeUI
+    background:
+      enabled: false
+  tooltip:
+    filter: (tooltipItem) => tooltipItem.raw > 0
+    x:
+      format: dddd, d MMMM
+    enabled: true
+    followCursor: true
+    fixed:
+      enabled: true
+      position: topleft
+      offsetY: 180
+    items:
+      display: flex
+  plotOptions:
+    bar:
+      borderRadius: 3
+      borderRadiusApplication: around
+      borderRadiusWhenStacked: all
+      columnWidth: 100%
+  stroke:
+    colors: transperent
+    width: 1
+  xaxis:
+    floating: true
+    labels:
+      show: false
+    axisTicks:
+      show: false
+    axisBorder:
+      show: false
+    tooltip:
+      enabled: false
+    crosshairs:
+      show: true
+      width: 25
+      position: front
+      opacity: 0.2
+  yaxis:
+    min: 0
+    decimals: 2
+    tickAmount: 2
+    floating: true
+    labels:
+      show: true
+      offsetX: 31
+      offsetY: -6
+  grid:
+    strokeDashArray: 2
+    borderColor: '#666666'
+    padding:
+      left: 0
+      right: 0
+  chart:
+    stacked: true
+    height: 180px
+    animations:
+      enabled: false
+graph_span: 336h
+hours_12: false
+show:
+  loading: false
+cache: true
+span:
+  end: day
+  offset: '-2day'
+experimental:
+  hidden_by_default: true
+color_list:
+  - '#335272'
+  - var(--paper-item-icon-active-color)
+update_interval: 1hour
+series:
+  - entity: sensor.mojelektro_daily_input_peak
+    name: VT
+    type: column
+    float_precision: 2
+    show:
+      legend_value: false
+      offset_in_name: false
+    statistics:
+      type: state
+      period: day
+      align: start
+    offset: +1day
+  - entity: sensor.mojelektro_daily_input_offpeak
+    name: MT
+    type: column
+    float_precision: 2
+    show:
+      datalabels: total
+      legend_value: false
+      offset_in_name: false
+    statistics:
+      type: state
+      period: day
+      align: start
+    offset: +1day
