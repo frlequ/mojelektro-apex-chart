@@ -1,61 +1,55 @@
 type: custom:apexcharts-card
-style: |
-  ha-card {
-   overflow:visible !important;
-   z-index: 3;
-   
-  }
-  ha-card .apexcharts-tooltip{
-    border-radius: 0px;
-    border: 0 !important;
-    box-shadow: unset;
-  }
-
-
-        ha-card .apexcharts-legend{
-        display: none;
-        
-        }
-yaxis:
-  - id: first
-    min: 0
-    max: 0.6
-    apex_config:
-      decimalsInFloat: 2
-      tickAmount: 2
-      floating: true
-      labels:
-        show: true
-        offsetX: 31
-        offsetY: -6
+card_mod:
+  style: |
+    ha-card {
+     overflow:visible !important;
+    }
+    ha-card .apexcharts-tooltip{
+      border-radius: 0px;
+      border: 0 !important;
+      box-shadow: unset;
+    }
+    ha-card .apexcharts-legend{
+    display: none;
+    
+    }
 apex_config:
-  tooltip:
-    x:
-      format: ' dddd, HH:mm'
-    enabled: true
-    fixed:
-      enabled: true
-      position: topleft
-      offsetY: 190
-    items:
-      display: flex
-  plotOptions:
-    bar:
-      columnWidth: 100%
-      dataLabels:
-        total:
-          enabled: true
-  stroke:
-    colors: transperent
-    width: 1
   yaxis:
+    tickAmount: 3
     decimalsInFloat: 2
-    tickAmount: 2
     floating: true
     labels:
       show: true
       offsetX: 31
       offsetY: -6
+  tooltip:
+    x:
+      formatter: |
+
+        EVAL: function (value, timestamp) {
+          var ttime = new Date(value)
+          var result = new Date(ttime.setDate(ttime.getDate() - 1))
+         
+          const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+          day = weekday[ttime.getDay()]
+         
+          var hours = ('0' + ttime.getHours().toString()).slice(-2)
+          var minutes = ('0' + ttime.getMinutes().toString()).slice(-2)
+          return day +", "+ hours +":"+ minutes;
+        }
+
+    enabled: true
+    fixed:
+      enabled: true
+      position: topleft
+      offsetY: 180
+    items:
+      display: flex
+  plotOptions:
+    bar:
+      columnWidth: 90%
+  stroke:
+    colors: transperent
   xaxis:
     tooltip:
       enabled: false
@@ -73,25 +67,24 @@ apex_config:
       left: 0
       right: 0
   chart:
-    stacked: true
     height: 180px
     animations:
       enabled: false
 graph_span: 24h
 update_interval: 15min
-hours_12: false
 show:
   loading: false
+hours_12: false
 cache: true
 span:
   end: hour
   offset: '-15min'
 color_list:
   - var(--paper-item-icon-active-color)
+
 series:
   - entity: sensor.mojelektro_15min_input
-    yaxis_id: first
-    name: Comp
+    name: 15 min interval
     type: column
     float_precision: 3
     show:
@@ -99,5 +92,5 @@ series:
       offset_in_name: false
     group_by:
       fill: zero
-      func: max
+      func: last
       duration: 15min
