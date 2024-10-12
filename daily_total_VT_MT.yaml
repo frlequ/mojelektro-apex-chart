@@ -1,31 +1,29 @@
 type: custom:apexcharts-card
-style: |
+card_mod:
+  style: |
 
-  ha-card .apexcharts-gridlines-horizontal{
-     /*transform: translate(-14px, 0px);*/
-     /* margin-left: -20px*/
-        transform: scaleX(0.90);
-  }
-  ha-card .apexcharts-grid{
-    transform: translate(14px, 0px);
-   /*transform: scaleX(0.5);*/
-    overflow:hidden !important;
-  }
-  ha-card .apexcharts-xcrosshairs{
-    transform: translate(-13px, 0px);
-  }
-  ha-card {
-     overflow:visible !important;
+    ha-card .apexcharts-gridlines-horizontal{
+      transform: scaleX(0.90);
     }
-  ha-card .apexcharts-tooltip{
-    border-radius: 0px;
-    border: 0 !important;
-    box-shadow: unset;
-  }
-        ha-card .apexcharts-legend{
-        display: none;
-        
-        }
+    ha-card .apexcharts-grid{
+      transform: translate(14px, 0px);
+      overflow:hidden !important;
+    }
+    ha-card .apexcharts-xcrosshairs{
+      transform: translate(0px, 0px);
+    }
+    ha-card {
+       overflow:visible !important;
+    }
+    ha-card .apexcharts-tooltip{
+      border-radius: 0px;
+      border: 0 !important;
+      box-shadow: unset;
+    }
+      ha-card .apexcharts-legend{
+      display: none;
+    }
+    
 apex_config:
   dataLabels:
     enabled: true
@@ -50,12 +48,11 @@ apex_config:
   plotOptions:
     bar:
       borderRadius: 3
-      borderRadiusApplication: around
-      borderRadiusWhenStacked: all
-      columnWidth: 100%
+      borderRadiusApplication: end
+      borderRadiusWhenStacked: last
+      columnWidth: 98%
   stroke:
     colors: transperent
-    width: 1
   xaxis:
     floating: true
     labels:
@@ -91,7 +88,7 @@ apex_config:
     height: 180px
     animations:
       enabled: false
-graph_span: 336h
+graph_span: 14day
 hours_12: false
 show:
   loading: false
@@ -99,8 +96,6 @@ cache: true
 span:
   end: day
   offset: '-2day'
-experimental:
-  hidden_by_default: true
 color_list:
   - '#335272'
   - var(--paper-item-icon-active-color)
